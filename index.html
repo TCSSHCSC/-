@@ -131,10 +131,15 @@
   </main>
   <footer><div class="brand footer-brand"><img src="images/社徽.png" alt=""><span>TCSSH CSC</span></div><p>台中市立台中第二高級中等學校 電腦研習社</p><p>© <span id="year"></span> TCSSH CSC</p></footer>
   <script>
+    const resetToHero=()=>{
+      if(location.hash)history.replaceState(null,'',location.pathname+location.search);
+      window.scrollTo(0,0);
+    };
+    resetToHero();
     const welcome=document.querySelector('#welcome');
     const message=document.querySelector('#welcome-message');
     let welcomeTimer,typingTimer;
-    const closeWelcome=()=>{if(welcome.classList.contains('is-leaving'))return;welcome.classList.add('is-leaving');document.body.classList.remove('intro-active');setTimeout(()=>welcome.remove(),700)};
+    const closeWelcome=()=>{if(welcome.classList.contains('is-leaving'))return;welcome.classList.add('is-leaving');document.body.classList.remove('intro-active');resetToHero();setTimeout(()=>{welcome.remove();resetToHero()},700)};
     const typeWelcome=()=>{
       const text=message.dataset.text;
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){message.textContent=text;welcomeTimer=setTimeout(closeWelcome,1500);return}
